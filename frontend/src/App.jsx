@@ -1,0 +1,6 @@
+import React, { useState } from 'react';import {Routes,Route} from 'react-router-dom';import Layout from './layouts/Layout';import Dashboard from './pages/Dashboard';import Books from './pages/Books';import BookDetail from './pages/BookDetail';import Transactions from './pages/Transactions';import Analytics from './pages/Analytics';import Forecast from './pages/Forecast';import Recommendations from './pages/Recommendations';import Reports from './pages/Reports';import Login from './pages/Login';
+export default function App(){
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  if (!token) return <Login onLogin={setToken} />;
+  return <Routes><Route element={<Layout onLogout={() => {localStorage.removeItem('token'); setToken(null);}}/>}><Route index element={<Dashboard/>}/><Route path="books" element={<Books/>}/><Route path="books/:id" element={<BookDetail/>}/><Route path="transactions" element={<Transactions/>}/><Route path="analytics" element={<Analytics/>}/><Route path="forecast" element={<Forecast/>}/><Route path="recommendations" element={<Recommendations/>}/><Route path="reports" element={<Reports/>}/><Route path="*" element={<Dashboard/>}/></Route></Routes>
+}
